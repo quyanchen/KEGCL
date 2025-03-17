@@ -1,0 +1,20 @@
+BIO:
+   seed: 3
+   learning_rate: 0.01
+   num_hidden: 128
+   num_proj_hidden: 128
+   activation: "rrelu"
+   base_model: 'GCNConv'
+   num_layers: 2
+   drop_edge_rate_1: 0.6
+   drop_edge_rate_2: 0.3
+   drop_feature_rate_1: 0.2
+   drop_feature_rate_2: 0.3
+   tau: 0.2
+   num_epochs: 2000
+   weight_decay: 0.00001
+   eps: 0.5
+   alpha: 0.001
+   beta: 0.01
+   lamb: 0
+
