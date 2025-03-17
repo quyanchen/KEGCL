@@ -1,44 +1,9 @@
 protein_cc_tt = {}
 go_cc_tt = "dataset/Krogan14K/krogan14k_go_cc_tt_information.txt"
-with open(go_cc_tt) as f:
-    for line in f:
-        tt = line.strip().split("TT:")[1]
-        cc = line.strip().split("CC:")[1:]
 
-        if tt != 'set()' and len(cc) != 0:
-            cc[-1] = cc[-1].split(" TT:")[0]
-            cc_c = []
-            for c in cc:
-                c_r = c.strip()
-                cc_c.append(c_r)
-
-            tt_1 = tt.split(",")
-            tt_1[0] = tt_1[0].split("{")[1]
-            tt_1[-1] = tt_1[-1].split("}")[0]
-            tt_t = []
-            for t in tt_1:
-                t_r = t.strip()
-                tt_t.append(int(t_r))
-
-            protein = line.strip().split(" ", 1)[0]
-
-            cc_tt = []
-            tt_t.sort()
-            cc_tt.append(cc_c)
-            cc_tt.append(tt_t)
-            protein_cc_tt[protein] = cc_tt
 print("protein_cc_tt")
 
 file1 = open("dataset/go_slim_mapping.tab.txt")
-go_tag_c = set()
-for i in file1:
-    i = i.rstrip('\n')
-    cfp = i.split('  ')[0].split('\t')
-    go_tag_1 = cfp[3]
-    if go_tag_1 == "C":
-        go_tag_c.add(cfp[4])
-GO_CC = list(go_tag_c)
-GO_CC = sorted(GO_CC, key=str.lower)
 
 print("GO_CC")
 
