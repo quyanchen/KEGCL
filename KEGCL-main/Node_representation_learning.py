@@ -224,13 +224,13 @@ def save_restored_subnet(subnet_idx, nodes_list, edge_index, embeddings, output_
     os.makedirs(output_dir, exist_ok=True)
     
     # Save node list
-    node_file = os.path.join(output_dir, f"biosl{subnet_idx}_restored_nodes.txt")
+    node_file = os.path.join(output_dir, f"bio{subnet_idx}_restored_nodes.txt")
     with open(node_file, 'w') as f:
         for node in nodes_list:
             f.write(f"{node}\n")
     
     # Save edges (undirected, save each edge once)
-    edge_file = os.path.join(output_dir, f"biosl{subnet_idx}_restored_edges.txt")
+    edge_file = os.path.join(output_dir, f"bio{subnet_idx}_restored_edges.txt")
     edge_set = set()
     edge_list = edge_index.cpu().numpy()
     for i in range(edge_list.shape[1]):
@@ -245,7 +245,7 @@ def save_restored_subnet(subnet_idx, nodes_list, edge_index, embeddings, output_
             f.write(f"{node_u}\t{node_v}\n")
     
     # Save embeddings
-    embed_file = os.path.join(output_dir, f"biosl{subnet_idx}_restored_embeddings.txt")
+    embed_file = os.path.join(output_dir, f"bio{subnet_idx}_restored_embeddings.txt")
     np.savetxt(embed_file, embeddings, fmt='%.15f')
     
     print(f"  [Save] Restored subnet saved:")
@@ -285,10 +285,10 @@ if __name__ == '__main__':
     parser.add_argument('--restore_ratio', type=float, default=0.001,
                        help='Ratio of removed edges to restore (0-1)')
     parser.add_argument('--original_ppi', type=str, 
-                       default='D:/#postgraduate/PCI/CODE/Construct subset/dataset/biogrid.txt',
+                       default='dataset/biogrid.txt',
                        help='Path to original PPI network file')
     parser.add_argument('--go_attr_file', type=str,
-                       default='D:/#postgraduate/PCI/CODE/Construct subset/protein_go_with_activity.txt',
+                       default='protein_go_with_activity.txt',
                        help='Path to protein GO annotation file')
     parser.add_argument('--early_stopping', action='store_true', 
                        help='Enable early stopping mechanism')
@@ -324,14 +324,14 @@ if __name__ == '__main__':
     rand_layers = config['rand_layers']
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    path = osp.expanduser('D:/#postgraduate/PCI/CODE/Construct subset/dataset')
+    path = osp.expanduser('dataset')
     path = osp.join(path, args.dataset)
 
     for ii in range(255):
-        attr_file = f"D:/#postgraduate/PCI/CODE/Construct subset/biosl/Attribute_biosl{ii}.txt"
-        network_file = f"D:/#postgraduate/PCI/CODE/Construct subset/biosl/Network_biosl{ii}.txt"
-        node_file = f"D:/#postgraduate/PCI/CODE/Construct subset/biosl/biosl{ii}_node.txt"
-        subnet_edge_file = f"D:/#postgraduate/PCI/CODE/Construct subset/biosl/biogrid_{ii}.txt"
+        attr_file = f"bio/Attribute_bio{ii}.txt"
+        network_file = f"bio/Network_bio{ii}.txt"
+        node_file = f"bio/bio{ii}_node.txt"
+        subnet_edge_file = f"bio/biogrid_{ii}.txt"
 
         if not os.path.exists(attr_file) or not os.path.exists(network_file):
             continue
