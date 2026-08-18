@@ -1,0 +1,50 @@
+data_root: data
+output_root: artifacts
+go_file: go_slim_mapping.tab.txt
+expression_file: series_matrix.txt
+seed: 2026
+device: cuda:0
+datasets:
+  bio:
+    ppi_file: biogrid.txt
+  col:
+    ppi_file: collins.txt
+  dip:
+    ppi_file: DIP.txt
+  k14:
+    ppi_file: krogan14k.txt
+augmentation:
+  add_rate_1: 0.20
+  add_rate_2: 0.30
+  drop_edge_rate_1: 0.20
+  drop_edge_rate_2: 0.30
+  drop_feature_rate_1: 0.10
+  drop_feature_rate_2: 0.20
+model:
+  hidden_dim: 512
+  projection_dim: 512
+  stages: 2
+  depth_low: 1
+  depth_high: 4
+  activation: prelu
+  dropout: 0.20
+training:
+  epochs: 500
+  learning_rate: 0.001
+  weight_decay: 0.00001
+  temperature: 0.7
+  negatives_per_positive: 16
+  positive_batch_size: 1024
+  save_every: 100
+  inference_samples: 4
+clustering:
+  min_clique_size: 3
+  attachment_threshold: 0.3
+  min_complex_size: 3
+  max_complex_size: 0
+  redundancy_threshold: 1.01
+  embedding_weight: 0.1
+  attribute_weighting: binary
+  max_cliques: 0
+evaluation:
+  overlap_threshold: 0.2
